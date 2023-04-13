@@ -1,0 +1,12 @@
+Package: SparseFactorAnalysis
+Type: Package
+Title: Scaling Count and Binary Data with Sparse Factor Analysis
+Version: 1.2
+Date: 2016-09-15
+Author: Marc Ratkovic, In Song Kim, John Londregan, and Yuki Shiraito
+Maintainer: Marc Ratkovic <ratkovic@princeton.edu>
+Description: Multidimensional scaling provides a means of uncovering a latent structure underlying observed data, while estimating the number of latent dimensions.  This package presents a means for scaling binary and count data, for example the votes and word counts for legislators.  Includes EM implementation and model diagnostics.  Future work will iextend this work to ordinal and continuous data. 
+License: GPL (>= 2)
+Depends:  directlabels,  proto, ggplot2
+Imports: Rcpp (>= 0.11.4), MASS, VGAM, truncnorm, rsvd
+LinkingTo: Rcpp, RcppArmadillo
