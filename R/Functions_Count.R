@@ -519,8 +519,8 @@ sfa <-
           waicsparse.run[, 2:4] <- 0
         }
         
-        waicsparse.run[, 1] <- waic.temp[, 1]
-        waicsparse.run[, 2:4] <- waicsparse.run[, 2:4] + waic.temp[, 2:4] / gibbs
+        waicsparse.run[, 1] <- 0#waic.temp[, 1]
+        waicsparse.run[, 2:4] <- 0# waicsparse.run[, 2:4] + waic.temp[, 2:4] / gibbs
         
         
         
@@ -534,16 +534,16 @@ sfa <-
     
     ##Gather waic
     if (EM == FALSE)		{
-      waic.mat[, 2:4] <- waic.mat[, 2:4] / waic.count
+      waic.mat[, 2:4] <- 0#waic.mat[, 2:4] / waic.count
       taus.mean <- taus.run / waic.count
-      WAIC <-
-        -2 * sum(log(waic.mat[, 2]), na.rm = TRUE) + 2 * (sum(waic.mat[, 4] - waic.mat[, 3] ^
-                                                                2))
+      WAIC <- 0
+        #-2 * sum(log(waic.mat[, 2]), na.rm = TRUE) + 2 * (sum(waic.mat[, 4] - waic.mat[, 3] ^
+         #                                                       2))
       taus.mean <- taus.run / waic.count
       
-      sparseWAIC <-
-        -2 * sum(log(waicsparse.run[, 2]), na.rm = TRUE) + 2 * (sum(waicsparse.run[, 4] -
-                                                                      waicsparse.run[, 3] ^ 2))
+      sparseWAIC <- 0
+#        -2 * sum(log(waicsparse.run[, 2]), na.rm = TRUE) + 2 * (sum(waicsparse.run[, 4] -
+ #                                                                     waicsparse.run[, 3] ^ 2))
     } else{
       waic.mat <- NULL
       WAIC <- NULL
@@ -584,11 +584,11 @@ sfa <-
         "rowdims.all" = U.average / gibbs,
         "coldims.all" = V.average / gibbs,
         "dev" = dev.run,
-        "waic.out" = waic.mat,
-        "taus" = taus.mean,
-        "WAIC" = WAIC,
-        "sparseWAIC" = sparseWAIC,
-        "waic.sparsemat" = waicsparse.run
+        #"waic.out" = waic.mat,
+        "taus" = taus.mean
+        #"WAIC" = WAIC,
+        #"sparseWAIC" = sparseWAIC,
+        #"waic.sparsemat" = waicsparse.run
       )
     class(out) <- "sfa"
     invisible(out)
