@@ -145,7 +145,7 @@ sfa <-
     D.run <- D.mean.run <- matrix(NA, nrow = maxdim, ncol = gibbs + burnin)
     accept.run <- NULL
     lambda.run <- NULL
-    waicsparse.run <- waicmat.run <- NULL
+    #waicsparse.run <- waicmat.run <- NULL
     dev.run <- matrix(NA, nrow = 2, ncol = gibbs + burnin)
     V.average <- U.average <- 0
     Z.run <- Z.mode.run <- 0
@@ -206,8 +206,8 @@ sfa <-
     params.init <- c(0, 0)#log(c(mean(votes.mat)))
     proposal.sd <- 0.1
     step.size <- scale.sd <- 1
-    waic.count <- 1
-    taus.run <- 0
+    #waic.count <- 1
+    # taus.run <- 0
     #############################
     #############################
     #############################
@@ -292,17 +292,17 @@ sfa <-
       
       ##Capture WAIC
       if (i.gibbs == max(max.optim, burnin)) {
-        waic.mat <- Z.call$waicmat
-        taus.run <- taus.run + Z.call$tau.ord
+        # waic.mat <- Z.call$waicmat
+        # taus.run <- taus.run + Z.call$tau.ord
       }
       if (i.gibbs > max(max.optim, burnin)) {
-        waic.mat[, 2:4] <- waic.mat[, 2:4] + Z.call$waicmat[, 2:4]
-        taus.run <- taus.run + Z.call$tau.ord
-        waic.count <- waic.count + 1
+        # waic.mat[, 2:4] <- waic.mat[, 2:4] + Z.call$waicmat[, 2:4]
+        # taus.run <- taus.run + Z.call$tau.ord
+        # waic.count <- waic.count + 1
       }
       
       if (EM == TRUE) {
-        taus.mean <- taus.run <- Z.call$tau.ord
+        taus.mean  <- Z.call$tau.ord
       }
       
       Z.next <- Z.call$Z
@@ -513,15 +513,15 @@ sfa <-
           wordprob.mat <- NULL
         }
         
-        waic.temp <- rbind(voteprob.mat, wordprob.mat)
-        if (i.gibbs == burnin + 1) {
-          waicsparse.run <- waic.temp
-          waicsparse.run[, 2:4] <- 0
-        }
-        
-        waicsparse.run[, 1] <- 0#waic.temp[, 1]
-        waicsparse.run[, 2:4] <- 0# waicsparse.run[, 2:4] + waic.temp[, 2:4] / gibbs
-        
+        # waic.temp <- rbind(voteprob.mat, wordprob.mat)
+        # if (i.gibbs == burnin + 1) {
+        #   waicsparse.run <- waic.temp
+        #   waicsparse.run[, 2:4] <- 0
+        # }
+        # 
+        # waicsparse.run[, 1] <- 0#waic.temp[, 1]
+        # waicsparse.run[, 2:4] <- 0# waicsparse.run[, 2:4] + waic.temp[, 2:4] / gibbs
+        # 
         
         
         U.average <- U.average + post.process.inner(U.order, UDV.all$U.next)
@@ -534,19 +534,19 @@ sfa <-
     
     ##Gather waic
     if (EM == FALSE)		{
-      waic.mat[, 2:4] <- 0#waic.mat[, 2:4] / waic.count
-      taus.mean <- taus.run / waic.count
-      WAIC <- 0
+      # waic.mat[, 2:4] <- 0#waic.mat[, 2:4] / waic.count
+      # taus.mean <- taus.run / waic.count
+      # WAIC <- 0
         #-2 * sum(log(waic.mat[, 2]), na.rm = TRUE) + 2 * (sum(waic.mat[, 4] - waic.mat[, 3] ^
          #                                                       2))
-      taus.mean <- taus.run / waic.count
+      # taus.mean <- taus.run / waic.count
       
-      sparseWAIC <- 0
+      # sparseWAIC <- 0
 #        -2 * sum(log(waicsparse.run[, 2]), na.rm = TRUE) + 2 * (sum(waicsparse.run[, 4] -
  #                                                                     waicsparse.run[, 3] ^ 2))
     } else{
-      waic.mat <- NULL
-      WAIC <- NULL
+      # waic.mat <- NULL
+      # WAIC <- NULL
     }
     
     
@@ -583,9 +583,9 @@ sfa <-
         "Z.mode" = Z.mode.run / gibbs,
         "rowdims.all" = U.average / gibbs,
         "coldims.all" = V.average / gibbs,
-        "dev" = dev.run,
+        "dev" = dev.run#,
         #"waic.out" = waic.mat,
-        "taus" = taus.mean
+        # "taus" = taus.mean
         #"WAIC" = WAIC,
         #"sparseWAIC" = sparseWAIC,
         #"waic.sparsemat" = waicsparse.run
